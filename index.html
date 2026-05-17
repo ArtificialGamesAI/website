@@ -52,6 +52,15 @@ body {
   padding: var(--frame-y) var(--frame-right) var(--frame-y) var(--frame-left);
 }
 
+/* Content centres in a column within the padded body.
+   The stripe stays attached to the viewport edge; the content sits
+   in a max-width column that auto-centres within the available cream space. */
+.column {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
 /* The scar stripe — full bleed right edge, top to bottom */
 .stripe {
   position: fixed;
@@ -257,7 +266,7 @@ body {
 
 <div class="stripe" aria-hidden="true"></div>
 
-<header class="doc-header">
+<header class="doc-header column">
   <div class="ag-mark">
     <div class="monogram">AG</div>
     <span class="header-emdash" aria-hidden="true">&mdash;</span>
@@ -270,7 +279,7 @@ body {
   </nav>
 </header>
 
-<main>
+<main class="column">
   <div class="head-spacer"></div>
 
   <h1 class="title">Artificial, games.</h1>
@@ -290,7 +299,7 @@ body {
 
 <div class="spacer"></div>
 
-<footer class="footer">
+<footer class="footer column">
   <div class="field">
     <span class="label">Who:</span>
     <span class="value">M. Sorrell, claude-opus-4-7, gpt-5.4</span>
