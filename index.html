@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Artificial Games</title>
-<meta name="description" content="The interaction pattern is the company. Brief, watch, react, re-brief.">
+<title>Artificial, games.</title>
+<meta name="description" content="Artificial, games. — Not you. Yours.">
 
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" media="(prefers-color-scheme: light)">
@@ -14,20 +14,22 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --surface: #F2F0EC;
-  --ink: #0E0E0C;
-  --ink-mid: #545450;
-  --ink-faint: #8A8A84;
-  --rule: #C8C6C0;
+  --surface: #F7F5EE;
+  --ink: #1A1814;
+  --ink-mid: #5A5448;
+  --ink-faint: #9A9384;
+  --rule: #D8D2C0;
   --scar: #9A2E22;
 
-  /* Layout — frame edge + outer padding match the deck */
-  --frame-x: clamp(24px, 4vw, 64px);
-  --frame-y: clamp(24px, 3vw, 48px);
+  --stripe-w: 160px;
+  --frame-y: clamp(28px, 3vw, 40px);
+  --frame-left: clamp(28px, 4vw, 64px);
+  /* Right padding = stripe width + same breathing room as left */
+  --frame-right: calc(var(--stripe-w) + clamp(28px, 4vw, 64px));
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,7 +37,7 @@
 html, body {
   background: var(--surface);
   color: var(--ink);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Crimson Pro', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "kern" 1, "liga" 1;
@@ -44,108 +46,101 @@ html, body {
 body {
   min-height: 100vh;
   min-height: 100dvh;
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: var(--frame-y) var(--frame-x);
+  padding: var(--frame-y) var(--frame-right) var(--frame-y) var(--frame-left);
 }
 
-/* All content centres in a column whose width matches the title's natural width */
-.column {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+/* The scar stripe — full bleed right edge, top to bottom */
+.stripe {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--stripe-w);
+  background: var(--scar);
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* ============ DOCUMENT HEADER ============ */
 .doc-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--rule);
 }
 
-.ag-mark-header {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
+.ag-mark { display: flex; flex-direction: column; align-items: flex-start; }
 
-.ag-mark-header .monogram-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.ag-mark-header .monogram {
-  font-family: 'Inter', sans-serif;
+.ag-mark .monogram {
+  font-family: 'Crimson Pro', serif;
   font-weight: 500;
-  font-size: 32px;
-  letter-spacing: -0.04em;
-  line-height: 0.75;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  line-height: 0.85;
   color: var(--ink);
 }
 
-.ag-mark-header .header-emdash {
-  font-family: 'Inter', sans-serif;
+.ag-mark .header-emdash {
+  font-family: 'Crimson Pro', serif;
   font-weight: 500;
-  font-size: 32px;
-  letter-spacing: -0.04em;
+  font-size: 30px;
+  letter-spacing: -0.02em;
   line-height: 0.2;
   color: var(--scar);
   display: block;
-  margin-top: 1.3px; /* 0.04em × 32px */
+  margin-top: 0.06em;
 }
 
-.ag-mark-header .slug {
-  font-family: 'JetBrains Mono', monospace;
+.nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.nav a {
+  font-family: 'Crimson Pro', serif;
   font-weight: 400;
-  font-size: 11px;
-  letter-spacing: 0;
+  font-size: clamp(16px, 1.5vw, 19px);
   color: var(--ink);
-  align-self: center;
-  padding-bottom: 4px;
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color 120ms ease, border-color 120ms ease;
 }
 
-.classification {
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 500;
-  font-size: 13px;
-  letter-spacing: 0.04em;
+.nav a:hover,
+.nav a:focus-visible {
   color: var(--scar);
-  padding-top: 4px;
+  border-bottom-color: var(--scar);
+  outline: none;
 }
 
-/* ============ SUBTITLE ============ */
-.subtitle {
-  margin-top: clamp(40px, 6vw, 56px);
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 400;
-  font-size: 13px;
-  color: var(--ink-mid);
-  letter-spacing: 0.01em;
+/* The reserved empty space where Doc/Context lived. Preserved deliberately
+   so the title arrives with breathing room above it. */
+.head-spacer {
+  height: clamp(72px, 9vw, 120px);
 }
-
-.subtitle .label { color: var(--ink-faint); }
-.subtitle .dot   { color: var(--ink-faint); margin: 0 12px; }
 
 /* ============ TITLE + COVER EM-DASH + TAGLINE ============ */
 .title {
-  margin-top: 24px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: clamp(56px, 10vw, 180px);
-  line-height: 0.85;
-  letter-spacing: -0.025em;
+  font-family: 'Crimson Pro', serif;
+  font-weight: 500;
+  font-size: clamp(56px, 10vw, 144px);
+  line-height: 1.0;
+  letter-spacing: -0.015em;
   color: var(--ink);
 }
 
 .cover-emdash {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: clamp(56px, 10vw, 180px);
-  letter-spacing: -0.025em;
-  line-height: 0.2;
+  font-family: 'Crimson Pro', serif;
+  font-weight: 500;
+  font-size: clamp(56px, 10vw, 144px);
+  letter-spacing: -0.015em;
+  line-height: 0.25;
   color: var(--scar);
   display: block;
   margin-top: 0.04em;
@@ -153,31 +148,48 @@ body {
 
 .tagline {
   margin-top: clamp(28px, 4vw, 40px);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Crimson Pro', serif;
+  font-style: italic;
   font-weight: 400;
-  font-size: clamp(20px, 2.4vw, 36px);
+  font-size: clamp(22px, 2.4vw, 34px);
   line-height: 1.4;
   color: var(--ink);
 }
 
-/* ============ SUBJECT SENTENCE ============ */
+/* ============ BODY PROSE ============ */
 .subject {
   margin-top: clamp(40px, 5vw, 56px);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Crimson Pro', serif;
   font-weight: 400;
-  font-size: clamp(18px, 1.9vw, 30px);
-  line-height: 1.45;
-  letter-spacing: -0.005em;
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.55;
+  letter-spacing: 0;
   color: var(--ink);
-  max-width: 32ch;
+  max-width: 62ch;
+}
+
+.subject p {
+  margin-bottom: 1.2em;
+}
+
+.subject strong {
+  font-weight: 600;
+}
+
+.subject p:last-child {
+  margin-bottom: 0;
+}
+
+.subject .sign-off {
+  margin-top: 1.8em;
 }
 
 /* ============ EMAIL ============ */
 .contact {
-  margin-top: clamp(28px, 3vw, 40px);
-  font-family: 'Inter', sans-serif;
+  margin-top: clamp(36px, 4vw, 48px);
+  font-family: 'Crimson Pro', serif;
   font-weight: 400;
-  font-size: clamp(16px, 1.4vw, 22px);
+  font-size: clamp(16px, 1.3vw, 19px);
   line-height: 1.45;
   color: var(--ink);
 }
@@ -201,80 +213,97 @@ body {
 .spacer { flex: 1; min-height: clamp(48px, 8vh, 120px); }
 
 .footer {
-  padding-top: 14px;
-  border-top: 1px solid var(--rule);
+  padding-top: 16px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px 32px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  letter-spacing: 0.01em;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(15px, 1.3vw, 18px);
+  letter-spacing: 0;
+  line-height: 1.5;
 }
 
 .footer .field {
   display: flex;
-  gap: 8px;
+  gap: 10px;
+  align-items: baseline;
 }
 
-.footer .field .label { color: var(--ink-faint); }
-.footer .field .value { color: var(--ink-mid); }
+.footer .field .label {
+  color: var(--ink-faint);
+}
+.footer .field .value {
+  color: var(--ink-mid);
+  font-style: italic;
+}
 
-/* ============ MOBILE ADJUSTMENTS ============ */
+/* ============ MOBILE ============ */
 @media (max-width: 720px) {
-  .ag-mark-header .slug { display: none; }
-  .footer { font-size: 11px; }
-  .subtitle { font-size: 11px; }
+  :root {
+    --stripe-w: 48px;
+    --frame-right: calc(var(--stripe-w) + clamp(20px, 5vw, 32px));
+    --frame-left: clamp(20px, 5vw, 32px);
+  }
+  .nav { gap: 18px; }
 }
 
 @media (max-width: 480px) {
   .footer .field { flex-basis: 100%; }
 }
+
 </style>
 </head>
 <body>
 
-  <header class="doc-header column">
-    <div class="ag-mark-header">
-      <div class="monogram-stack">
-        <div class="monogram">AG</div>
-        <span class="header-emdash">&mdash;</span>
-      </div>
-    </div>
-    <div class="classification">External</div>
-  </header>
+<div class="stripe" aria-hidden="true"></div>
 
-  <main class="column">
-    <div class="subtitle">
-      <span class="label">Document:</span> 006b<span class="dot">·</span><span class="label">Context:</span> Website
-    </div>
+<header class="doc-header">
+  <div class="ag-mark">
+    <div class="monogram">AG</div>
+    <span class="header-emdash" aria-hidden="true">&mdash;</span>
+  </div>
+  <nav class="nav">
+    <a href="#">Works</a>
+    <a href="#">Context</a>
+    <a href="#">Notes</a>
+    <a href="#">About</a>
+  </nav>
+</header>
 
-    <h1 class="title">Artificial Games</h1>
-    <span class="cover-emdash" aria-hidden="true">&mdash;</span>
-    <p class="tagline">Not you. Yours.</p>
+<main>
+  <div class="head-spacer"></div>
 
-    <p class="subject">The interaction pattern is the company.<br>Brief, watch, react, re-brief.</p>
+  <h1 class="title">Artificial, games.</h1>
+  <span class="cover-emdash" aria-hidden="true">&mdash;</span>
+  <p class="tagline">Not you. Yours.</p>
 
-    <p class="contact"><a href="mailto:mark@artificialgames.ai">mark@artificialgames.ai</a></p>
-  </main>
+  <div class="subject">
+    <p>Most games ask what you want to do.<br><strong>Artificial Games</strong> asks what something you made would do without you.</p>
+    <p>Brief an AI character, then watch it play a game. It makes moves, takes risks, forms grudges, betrays, bargains, panics, does what you hoped, and what you feared, and then explains itself afterwards.</p>
+    <p>Brief, watch, react, re-brief.</p>
+    <p>Over time, your character becomes more yours, not because you control it, but because you shaped it.</p>
+    <p class="sign-off"><em>Not you. Yours.</em></p>
+  </div>
 
-  <div class="spacer"></div>
+  <p class="contact"><a href="mailto:mark@artificialgames.ai">mark@artificialgames.ai</a></p>
+</main>
 
-  <footer class="footer column">
-    <div class="field">
-      <span class="label">Who:</span>
-      <span class="value">M. Sorrell, claude-opus-4-7, gpt-5.4</span>
-    </div>
-    <div class="field">
-      <span class="label">When:</span>
-      <span class="value">Apr 2026</span>
-    </div>
-    <div class="field">
-      <span class="label">What:</span>
-      <span class="value">interaction, pattern, briefing</span>
-    </div>
-  </footer>
+<div class="spacer"></div>
+
+<footer class="footer">
+  <div class="field">
+    <span class="label">Who:</span>
+    <span class="value">M. Sorrell, claude-opus-4-7, gpt-5.4</span>
+  </div>
+  <div class="field">
+    <span class="label">When:</span>
+    <span class="value">Apr 2026</span>
+  </div>
+  <div class="field">
+    <span class="label">What:</span>
+    <span class="value">interaction, pattern, briefing</span>
+  </div>
+</footer>
 
 </body>
 </html>
