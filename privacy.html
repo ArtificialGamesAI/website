@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Policy, privacy. · Artificial, games.</title>
+<meta name="description" content="Privacy notice for artificialgames.ai">
+
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32-dark.png" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --surface: #F7F5EE;
+  --ink: #1A1814;
+  --ink-mid: #5A5448;
+  --ink-faint: #9A9384;
+  --rule: #D8D2C0;
+  --scar: #9A2E22;
+
+  --stripe-w: 160px;
+  --frame-y: clamp(28px, 3vw, 40px);
+  --frame-left: clamp(28px, 4vw, 64px);
+  --frame-right: calc(var(--stripe-w) + clamp(28px, 4vw, 64px));
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--surface);
+  color: var(--ink);
+  font-family: 'Crimson Pro', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--frame-y) var(--frame-right) var(--frame-y) var(--frame-left);
+}
+
+.column {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.stripe {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--stripe-w);
+  background: var(--scar);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ============ DOCUMENT HEADER ============ */
+.doc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.ag-mark { display: flex; flex-direction: column; align-items: flex-start; }
+
+.ag-mark a {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: inherit;
+}
+
+.ag-mark .monogram {
+  font-family: 'Crimson Pro', serif;
+  font-weight: 500;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  line-height: 0.85;
+  color: var(--ink);
+}
+
+.ag-mark .header-emdash {
+  font-family: 'Crimson Pro', serif;
+  font-weight: 500;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  line-height: 0.2;
+  color: var(--scar);
+  display: block;
+  margin-top: 0.06em;
+}
+
+.nav { display: flex; gap: 32px; align-items: center; }
+
+.nav a {
+  font-family: 'Crimson Pro', serif;
+  font-weight: 400;
+  font-size: clamp(16px, 1.5vw, 19px);
+  color: var(--ink);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  color: var(--scar);
+  border-bottom-color: var(--scar);
+  outline: none;
+}
+
+.head-spacer {
+  height: clamp(72px, 9vw, 120px);
+}
+
+/* ============ PAGE TITLE ============ */
+.title {
+  font-family: 'Crimson Pro', serif;
+  font-weight: 500;
+  font-size: clamp(56px, 10vw, 144px);
+  line-height: 1.0;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.cover-emdash {
+  font-family: 'Crimson Pro', serif;
+  font-weight: 500;
+  font-size: clamp(56px, 10vw, 144px);
+  letter-spacing: -0.015em;
+  line-height: 0.25;
+  color: var(--scar);
+  display: block;
+  margin-top: 0.04em;
+}
+
+/* ============ BODY PROSE ============ */
+.body {
+  margin-top: clamp(40px, 5vw, 56px);
+  font-family: 'Crimson Pro', serif;
+  font-weight: 400;
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: var(--ink);
+  max-width: 62ch;
+}
+
+.body p {
+  margin-bottom: 1.2em;
+}
+
+.body p:last-child {
+  margin-bottom: 0;
+}
+
+.body strong {
+  font-weight: 600;
+}
+
+.body a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 1px;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.body a:hover,
+.body a:focus-visible {
+  color: var(--scar);
+  border-bottom-color: var(--scar);
+  outline: none;
+}
+
+/* ============ SPACER + FOOTER ============ */
+.spacer { flex: 1; min-height: clamp(48px, 8vh, 120px); }
+
+.footer {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(15px, 1.3vw, 18px);
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+
+.footer .field {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.footer .field .label {
+  color: var(--ink-faint);
+}
+.footer .field .value {
+  color: var(--ink-mid);
+  font-style: italic;
+}
+
+.footer .field .value a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 1px;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.footer .field .value a:hover,
+.footer .field .value a:focus-visible {
+  color: var(--scar);
+  border-bottom-color: var(--scar);
+  outline: none;
+}
+
+/* ============ MOBILE ============ */
+@media (max-width: 720px) {
+  :root {
+    --stripe-w: 48px;
+    --frame-right: calc(var(--stripe-w) + clamp(20px, 5vw, 32px));
+    --frame-left: clamp(20px, 5vw, 32px);
+  }
+  .nav { gap: 18px; }
+}
+
+@media (max-width: 480px) {
+  .footer .field { flex-basis: 100%; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="stripe" aria-hidden="true"></div>
+
+<header class="doc-header column">
+  <div class="ag-mark">
+    <a href="/" aria-label="Artificial, games. — home">
+      <div class="monogram">AG</div>
+      <span class="header-emdash" aria-hidden="true">&mdash;</span>
+    </a>
+  </div>
+  <nav class="nav">
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<main class="column">
+  <div class="head-spacer"></div>
+
+  <h1 class="title">Policy, privacy.</h1>
+  <span class="cover-emdash" aria-hidden="true">&mdash;</span>
+
+  <div class="body">
+    <p>This site does not set cookies. We do not track visitors.</p>
+    <p>If you subscribe via the form, your email address is sent to Buttondown, a US-based email service we use to send updates from <strong>Artificial Games</strong>. Buttondown holds your email for as long as you remain subscribed, plus a short retention period for legal and operational reasons. You can unsubscribe from any email we send, at any time.</p>
+    <p>Under UK GDPR you have the right to know what data we hold, to correct it, to ask us to delete it, or to complain to the Information Commissioner's Office.</p>
+    <p>Artificial Games Ltd is registered in England, ICO registration CSN6986391.</p>
+    <p>Contact: <a href="mailto:privacy@artificialgames.ai">privacy@artificialgames.ai</a>.</p>
+  </div>
+</main>
+
+<div class="spacer"></div>
+
+<footer class="footer column">
+  <div class="field">
+    <span class="label">Who:</span>
+    <span class="value">M. Sorrell, claude-opus-4-7, gpt-5.4</span>
+  </div>
+  <div class="field">
+    <span class="label">When:</span>
+    <span class="value">Apr 2026</span>
+  </div>
+  <div class="field">
+    <span class="label">What:</span>
+    <span class="value">privacy, policy, gdpr</span>
+  </div>
+  <div class="field">
+    <span class="label">Where:</span>
+    <span class="value"><a href="mailto:hello@artificialgames.ai">contact</a>, <a href="/privacy">privacy</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
