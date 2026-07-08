@@ -6,7 +6,7 @@
 <title>Artificial, games.</title>
 <meta name="description" content="Artificial, games. — Not you. Yours.">
 
-<!-- Open Graph / Discord / Facebook / LinkedIn / iMessage -->
+<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://artificialgames.ai/">
 <meta property="og:title" content="Artificial, games.">
@@ -16,7 +16,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:site_name" content="Artificial, games.">
 
-<!-- Twitter / X -->
+<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://artificialgames.ai/">
 <meta name="twitter:title" content="Artificial, games.">
@@ -31,28 +31,36 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --surface: #F7F5EE;
-  --ink: #1A1814;
-  --ink-mid: #5A5448;
-  --ink-faint: #9A9384;
-  --rule: #D8D2C0;
-  --scar: #9A2E22;
+  /* Top band — sky */
+  --band-sky:    #D8E8F2;
+  /* Bottom band — sea */
+  --band-sea:    #2A6FA8;
 
-  --stripe-w: 160px;
+  /* Brown ink family — for use on the sky band */
+  --ink:         #3A2418;
+  --ink-mid:     #5A3A28;
+  --ink-faint:   #7A6E66;
+
+  /* Cream family — for use on the sea band */
+  --cream:       #FAF5E6;
+  --cream-mid:   rgba(250, 245, 230, 0.78);
+  --cream-faint: rgba(250, 245, 230, 0.55);
+
+  --white:       #FFFFFF;
+  --yellow:      #F5D547;
+
   --frame-y: clamp(28px, 3vw, 40px);
-  --frame-left: clamp(28px, 4vw, 64px);
-  /* Right padding = stripe width + same breathing room as left */
-  --frame-right: calc(var(--stripe-w) + clamp(28px, 4vw, 64px));
+  --frame-x: clamp(28px, 4vw, 64px);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
-  background: var(--surface);
+  background: var(--band-sky);
   color: var(--ink);
   font-family: 'Crimson Pro', serif;
   -webkit-font-smoothing: antialiased;
@@ -60,46 +68,42 @@ html, body {
   font-feature-settings: "kern" 1, "liga" 1;
 }
 
-body {
-  min-height: 100vh;
-  min-height: 100dvh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: var(--frame-y) var(--frame-right) var(--frame-y) var(--frame-left);
-}
+html { scrollbar-gutter: stable both-edges; }
+html, body { min-height: 100%; }
+body { min-height: 100vh; display: flex; flex-direction: column; }
+.band-sea { flex: 1 0 auto; }
 
-/* Content centres in a column within the padded body.
-   The stripe stays attached to the viewport edge; the content sits
-   in a max-width column that auto-centres within the available cream space. */
-.column {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* The scar stripe — full bleed right edge, top to bottom */
-.stripe {
-  position: fixed;
+/* ============ STICKY HEADER ============ */
+.sticky-header {
+  position: sticky;
   top: 0;
-  right: 0;
-  bottom: 0;
-  width: var(--stripe-w);
-  background: var(--scar);
-  z-index: 1;
-  pointer-events: none;
+  z-index: 30;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  padding: 20px var(--frame-x);
 }
 
-/* ============ DOCUMENT HEADER ============ */
-.doc-header {
+.sticky-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--white);
+}
+
+.sticky-header-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--rule);
+  max-width: 820px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 30;
+  isolation: isolate;
 }
-
-.ag-mark { display: flex; flex-direction: column; align-items: flex-start; }
 
 .ag-mark a {
   text-decoration: none;
@@ -107,15 +111,24 @@ body {
   flex-direction: column;
   align-items: flex-start;
   color: inherit;
+  height: 56px;
 }
 
 .ag-mark .monogram {
   font-family: 'Crimson Pro', serif;
   font-weight: 500;
-  font-size: 30px;
+  font-size: 36px;
   letter-spacing: -0.02em;
-  line-height: 0.85;
+  line-height: 1;
   color: var(--ink);
+  background: var(--yellow);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 2px;
+  transition: background 120ms ease;
 }
 
 .ag-mark .header-emdash {
@@ -124,58 +137,174 @@ body {
   font-size: 30px;
   letter-spacing: -0.02em;
   line-height: 0.2;
-  color: var(--scar);
+  color: var(--white);
   display: block;
-  margin-top: 0.06em;
+  margin-top: -14px;
+  position: relative;
+  z-index: 1;
+  transition: color 120ms ease;
+}
+
+.ag-mark a:hover .monogram,
+.ag-mark a:focus-visible .monogram {
+  background: var(--white);
+}
+
+.ag-mark a:hover .header-emdash,
+.ag-mark a:focus-visible .header-emdash {
+  color: var(--yellow);
 }
 
 .nav {
   display: flex;
-  gap: 32px;
   align-items: center;
+  position: relative;
 }
 
-.nav a {
+/* Hamburger button — three em-dashes stacked, same 56px box as the wordmark.
+   The lowest em-dash aligns vertically with the wordmark em-dash. */
+.menu-button {
+  width: 56px;
+  height: 56px;
+  background: var(--white);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
   font-family: 'Crimson Pro', serif;
-  font-weight: 400;
-  font-size: clamp(16px, 1.5vw, 19px);
-  color: var(--ink);
-  text-decoration: none;
-  padding-bottom: 2px;
-  border-bottom: 1px solid transparent;
-  transition: color 120ms ease, border-color 120ms ease;
+  transition: background 120ms ease;
 }
 
-.nav a:hover,
-.nav a:focus-visible {
-  color: var(--scar);
-  border-bottom-color: var(--scar);
+.menu-button:hover,
+.menu-button:focus-visible {
+  background: var(--band-sea);
   outline: none;
 }
 
-/* The reserved empty space where Doc/Context lived. Preserved deliberately
-   so the title arrives with breathing room above it. */
-.head-spacer {
-  height: clamp(72px, 9vw, 120px);
-}
-
-/* ============ TITLE + COVER EM-DASH + TAGLINE ============ */
-.title {
+.menu-em {
   font-family: 'Crimson Pro', serif;
   font-weight: 500;
-  font-size: clamp(56px, 10vw, 144px);
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  line-height: 0.2;
+  color: var(--ink);
+  text-align: left;
+  display: block;
+  padding-left: 0;
+  transition: color 120ms ease;
+}
+
+/* Distribute the three em-dashes so the bottom one aligns with the wordmark em-dash.
+   The wordmark em-dash visual line sits ~46px from the top of its 56px box.
+   With justify-content: flex-end on the button, the third em-dash sits near the bottom;
+   margin-bottom on the third raises it to match the wordmark line. */
+.menu-em:nth-child(1) { margin-bottom: 11px; }
+.menu-em:nth-child(2) { margin-bottom: 11px; }
+.menu-em:nth-child(3) { margin-bottom: 10px; }
+
+.menu-button:hover .menu-em,
+.menu-button:focus-visible .menu-em {
+  color: var(--white);
+}
+
+/* Dropdown menu — each link is its own white cloud box.
+   Odd boxes (1st, 3rd) right-align to the hamburger right edge.
+   Even boxes (2nd) left-align to the hamburger left edge — higgledy-piggledy. */
+.menu-panel {
+  position: absolute;
+  top: calc(100% + 40px);
+  right: 0;
+  width: 56px;            /* match hamburger width — anchors left and right edges */
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.menu-panel[hidden] {
+  display: none;
+}
+
+.menu-panel a {
+  display: block;
+  background: var(--white);
+  padding: 8px 16px;
+  font-family: 'Crimson Pro', serif;
+  font-weight: 400;
+  font-size: clamp(16px, 1.4vw, 18px);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease;
+  width: max-content;
+  align-self: flex-start;
+  text-align: left;
+}
+
+.menu-panel a:hover,
+.menu-panel a:focus-visible {
+  background: var(--band-sea);
+  color: var(--white);
+  outline: none;
+}
+
+/* ============ BAND 1 — SKY ============ */
+.band-sky {
+  background: var(--band-sky);
+  padding: 192px var(--frame-x) 96px;
+  position: relative;
+  z-index: 1;
+}
+
+.sky-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.title-block {
+  /* sits naturally below the header, no auto-margin push */
+  will-change: transform;
+}
+
+/* White cloud overlay sits above the sticky header in z-order.
+   JS positions it to match the title-block's current viewport position.
+   Clip-path reveals only the part that's currently behind the header.
+   The blur on the overlay itself gives it the soft cloud quality. */
+.title-block-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 2;
+  clip-path: inset(0 0 100% 0);
+  will-change: transform, clip-path;
+}
+
+.title-block-overlay .title,
+.title-block-overlay .tagline {
+  color: var(--white);
+}
+
+.title {
+  font-family: 'Crimson Pro', serif;
+  font-weight: 700;
+  font-size: clamp(44px, 11.2vw, 100px);
   line-height: 1.0;
   letter-spacing: -0.015em;
   color: var(--ink);
+  white-space: nowrap;
 }
 
 .cover-emdash {
   font-family: 'Crimson Pro', serif;
   font-weight: 500;
-  font-size: clamp(56px, 10vw, 144px);
+  font-size: clamp(44px, 11.2vw, 100px);
   letter-spacing: -0.015em;
   line-height: 0.25;
-  color: var(--scar);
+  color: var(--white);
   display: block;
   margin-top: 0.04em;
 }
@@ -185,21 +314,40 @@ body {
   font-family: 'Crimson Pro', serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(22px, 2.4vw, 34px);
+  font-size: clamp(26px, 3vw, 44px);
   line-height: 1.4;
   color: var(--ink);
 }
 
+/* ============ BAND 2 — SEA ============ */
+.band-sea {
+  background: var(--band-sea);
+  color: var(--cream);
+  padding: 80px var(--frame-x) 0;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.sea-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 /* ============ BODY PROSE ============ */
 .subject {
-  margin-top: clamp(40px, 5vw, 56px);
   font-family: 'Crimson Pro', serif;
-  font-weight: 400;
-  font-size: clamp(18px, 1.5vw, 22px);
+  font-weight: 200;
+  font-size: clamp(19px, 1.6vw, 24px);
   line-height: 1.55;
   letter-spacing: 0;
-  color: var(--ink);
-  max-width: 62ch;
+  color: var(--cream);
+  max-width: 100%;
 }
 
 .subject p {
@@ -225,21 +373,20 @@ body {
   font-weight: 400;
   font-size: clamp(16px, 1.3vw, 19px);
   line-height: 1.45;
-  color: var(--ink);
+  color: var(--cream);
 }
 
 .contact a {
   color: inherit;
   text-decoration: none;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--white);
   padding-bottom: 1px;
-  transition: color 120ms ease, border-color 120ms ease;
+  transition: opacity 120ms ease;
 }
 
 .contact a:hover,
 .contact a:focus-visible {
-  color: var(--scar);
-  border-bottom-color: var(--scar);
+  opacity: 0.7;
   outline: none;
 }
 
@@ -254,17 +401,17 @@ body {
   font-weight: 400;
   font-size: clamp(16px, 1.3vw, 19px);
   line-height: 1.45;
-  color: var(--ink-mid);
+  color: var(--cream-mid);
   margin-bottom: 14px;
 }
 
 .call-prompt em {
-  color: var(--ink);
+  color: var(--cream);
 }
 
 .call-prompt strong {
   font-weight: 600;
-  color: var(--ink);
+  color: var(--cream);
 }
 
 .subscribe-row {
@@ -293,10 +440,10 @@ body {
   font-weight: 400;
   font-size: clamp(16px, 1.3vw, 19px);
   line-height: 1.45;
-  color: var(--ink);
+  color: var(--cream);
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--white);
   padding: 8px 2px;
   outline: none;
   border-radius: 0;
@@ -304,12 +451,12 @@ body {
 }
 
 .subscribe input[type="email"]::placeholder {
-  color: var(--ink-faint);
+  color: var(--cream-mid);
   font-style: italic;
 }
 
 .subscribe input[type="email"]:focus {
-  border-bottom-color: var(--scar);
+  border-bottom-color: var(--cream);
 }
 
 .subscribe button[type="submit"] {
@@ -317,33 +464,56 @@ body {
   font-weight: 500;
   font-size: clamp(16px, 1.3vw, 19px);
   line-height: 1.45;
-  color: var(--surface);
-  background: var(--scar);
+  color: var(--ink);
+  background: var(--white);
   border: none;
   padding: 8px 22px;
   cursor: pointer;
   letter-spacing: 0.01em;
-  transition: background-color 120ms ease;
+  transition: opacity 120ms ease;
 }
 
 .subscribe button[type="submit"]:hover,
 .subscribe button[type="submit"]:focus-visible {
-  background: var(--ink);
+  opacity: 0.85;
   outline: none;
 }
 
-/* ============ SPACER + FOOTER ============ */
-.spacer { flex: 1; min-height: clamp(48px, 8vh, 120px); }
+/* ============ FOOTER ============ */
+/* flex spacer: holds the minimum gap above the footer and grows to push
+   the footer strip to the bottom of the sea band on short pages */
+.sea-spacer {
+  flex: 1 0 clamp(56px, 7vw, 80px);
+}
 
 .footer {
-  padding-top: 16px;
+  min-height: 96px;            /* same height as the header */
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  position: relative;
   font-family: 'Crimson Pro', serif;
   font-size: clamp(15px, 1.3vw, 18px);
   letter-spacing: 0;
   line-height: 1.5;
+  color: var(--cream-mid);
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  height: 1px;
+  background: var(--white);
+}
+
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 48px;
+  align-items: baseline;
 }
 
 .footer .field {
@@ -353,117 +523,276 @@ body {
 }
 
 .footer .field .label {
-  color: var(--ink-faint);
+  color: var(--cream-faint);
 }
 .footer .field .value {
-  color: var(--ink-mid);
+  color: var(--cream-mid);
   font-style: italic;
-}
-
-.footer .field .value a {
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: 1px;
-  transition: color 120ms ease, border-color 120ms ease;
-}
-
-.footer .field .value a:hover,
-.footer .field .value a:focus-visible {
-  color: var(--scar);
-  border-bottom-color: var(--scar);
-  outline: none;
 }
 
 /* ============ MOBILE ============ */
 @media (max-width: 720px) {
   :root {
-    --stripe-w: 48px;
-    --frame-right: calc(var(--stripe-w) + clamp(20px, 5vw, 32px));
-    --frame-left: clamp(20px, 5vw, 32px);
+    --frame-x: clamp(20px, 5vw, 32px);
   }
   .nav { gap: 18px; }
+  .band-sky { padding: 56px var(--frame-x) 64px; min-height: 60vh; }
+  .band-sea { padding: 56px var(--frame-x) 0; }
 }
 
 @media (max-width: 480px) {
   .footer .field { flex-basis: 100%; }
+  .nav a { font-size: 15px; }
 }
 
 </style>
 </head>
 <body>
 
-<div class="stripe" aria-hidden="true"></div>
-
-<header class="doc-header column">
-  <div class="ag-mark">
-    <a href="/" aria-label="Artificial, games. — home">
-      <div class="monogram">AG</div>
-      <span class="header-emdash" aria-hidden="true">&mdash;</span>
-    </a>
+<header class="sticky-header">
+  <div class="sticky-header-inner">
+    <div class="ag-mark">
+      <a href="/" aria-label="Artificial, games. — home">
+        <div class="monogram">AG</div>
+        <span class="header-emdash" aria-hidden="true">&mdash;</span>
+      </a>
+    </div>
+    <nav class="nav">
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu">
+        <span class="menu-em" aria-hidden="true">&mdash;</span>
+        <span class="menu-em" aria-hidden="true">&mdash;</span>
+        <span class="menu-em" aria-hidden="true">&mdash;</span>
+      </button>
+      <div class="menu-panel" id="menu-panel" hidden>
+        <a href="/about">About</a>
+        <a href="mailto:mark@artificialgames.ai">Contact</a>
+        <a href="/privacy">Privacy</a>
+      </div>
+    </nav>
   </div>
-  <nav class="nav">
-    <a href="/about">About</a>
-  </nav>
 </header>
 
-<main class="column">
-  <div class="head-spacer"></div>
-
+<!-- White cloud overlay — renders ABOVE the sticky header, positioned via JS
+     to match the title-block's current viewport coordinates. Clipped so only
+     the area behind the header is visible. -->
+<div class="title-block-overlay" aria-hidden="true">
   <h1 class="title">Artificial, games.</h1>
-  <span class="cover-emdash" aria-hidden="true">&mdash;</span>
+  <span class="cover-emdash">&mdash;</span>
   <p class="tagline">Not you. Yours.</p>
+</div>
 
-  <div class="subject">
-    <p>Most games put you in control.<br><strong>Artificial Games</strong> asks what happens when you give that control to a thing you made.</p>
-    <p>Brief an AI character, then watch it play a game. It makes moves, takes risks, forms grudges, betrays, bargains, panics, does what you hoped, and what you feared, and then explains itself afterwards.</p>
-    <p>Brief, watch, react, refine.</p>
-    <p>Over time, your character becomes more yours, not because you control it, but because you shape it.</p>
-    <p class="sign-off"><em>Not you. Yours.</em></p>
-  </div>
-
-  <p class="contact"><a href="mailto:mark@artificialgames.ai">mark@artificialgames.ai</a></p>
-
-  <form
-    class="subscribe"
-    action="https://buttondown.com/api/emails/embed-subscribe/artificialgames"
-    method="post"
-  >
-    <p class="call-prompt">The demo opens in due course.<br>Subscribers to <em>Information, various.</em> are notified when available.</p>
-    <div class="subscribe-row">
-      <label for="bd-email" class="visually-hidden">Email address</label>
-      <input
-        type="email"
-        name="email"
-        id="bd-email"
-        placeholder="your email"
-        required
-      />
-      <button type="submit">Subscribe</button>
+<!-- ============ BAND 1 — SKY ============ -->
+<section class="band-sky">
+  <div class="sky-inner">
+    <div class="title-block">
+      <h1 class="title">Artificial, games.</h1>
+      <span class="cover-emdash" aria-hidden="true">&mdash;</span>
+      <p class="tagline">Not you. Yours.</p>
     </div>
-  </form>
-</main>
+  </div>
+</section>
 
-<div class="spacer"></div>
+<!-- ============ BAND 2 — SEA ============ -->
+<section class="band-sea">
+  <div class="sea-inner">
 
-<footer class="footer column">
-  <div class="field">
-    <span class="label">Who:</span>
-    <span class="value">M. Sorrell, claude-opus-4-7, gpt-5.4, Buttondown</span>
+    <div class="subject">
+      <p>Most games put you in control.<br><strong>Artificial Games</strong> asks what happens when you give that control to a thing you made.</p>
+      <p>Brief an AI character, then watch it play a game. It makes moves, takes risks, forms grudges, betrays, bargains, panics, does what you hoped, and what you feared, and then explains itself afterwards.</p>
+      <p>Brief, watch, react, refine.</p>
+      <p>Over time, your character becomes more yours, not because you control it, but because you shape it.</p>
+      <p class="sign-off"><em>Not you. Yours.</em></p>
+    </div>
+
+    <p class="contact"><a href="mailto:mark@artificialgames.ai">mark@artificialgames.ai</a></p>
+
+    <form
+      class="subscribe"
+      action="https://buttondown.com/api/emails/embed-subscribe/artificialgames"
+      method="post"
+    >
+      <p class="call-prompt">The demo opens in due course.<br>Subscribers to <em>Information, various.</em> are notified when available.</p>
+      <div class="subscribe-row">
+        <label for="bd-email" class="visually-hidden">Email address</label>
+        <input
+          type="email"
+          name="email"
+          id="bd-email"
+          placeholder="your email"
+          required
+        />
+        <button type="submit">Subscribe</button>
+      </div>
+    </form>
+
+    <div class="sea-spacer" aria-hidden="true"></div>
+
+    <footer class="footer">
+      <div class="footer-row">
+        <div class="field">
+          <span class="label">Who:</span>
+          <span class="value">M. Sorrell, claude-opus-4-7, claude-opus-4-8, claude-fable-5, gpt-5.4, Buttondown</span>
+        </div>
+        <div class="field">
+          <span class="label">When:</span>
+          <span class="value">July 2026</span>
+        </div>
+        <div class="field">
+          <span class="label">What:</span>
+          <span class="value">ai, games, characters</span>
+        </div>
+      </div>
+    </footer>
+
   </div>
-  <div class="field">
-    <span class="label">When:</span>
-    <span class="value">Apr 2026</span>
-  </div>
-  <div class="field">
-    <span class="label">What:</span>
-    <span class="value">ai, games, characters</span>
-  </div>
-  <div class="field">
-    <span class="label">Where:</span>
-    <span class="value"><a href="mailto:hello@artificialgames.ai">contact</a>, <a href="/privacy">privacy</a></span>
-  </div>
-</footer>
+</section>
+
+<script>
+  // Hamburger menu toggle
+  (function() {
+    const button = document.querySelector('.menu-button');
+    const panel = document.querySelector('.menu-panel');
+    if (!button || !panel) return;
+
+    function close() {
+      panel.hidden = true;
+      button.setAttribute('aria-expanded', 'false');
+    }
+
+    function open() {
+      panel.hidden = false;
+      button.setAttribute('aria-expanded', 'true');
+    }
+
+    button.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (panel.hidden) open(); else close();
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!panel.hidden && !panel.contains(e.target) && e.target !== button) {
+        close();
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !panel.hidden) {
+        close();
+        button.focus();
+      }
+    });
+  })();
+</script>
+
+<script>
+  // Subtle parallax — cinema title block lags slightly as the page scrolls.
+  // Made robust against different scroll contexts (window, document, body, iframe parent).
+  (function() {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    const titleBlock = document.querySelector('.title-block');
+    const overlay = document.querySelector('.title-block-overlay');
+    const header = document.querySelector('.sticky-header');
+    if (!titleBlock) return;
+
+    let ticking = false;
+    let lastScroll = 0;
+
+    function getScrollPosition() {
+      return window.scrollY
+        || window.pageYOffset
+        || document.documentElement.scrollTop
+        || document.body.scrollTop
+        || 0;
+    }
+
+    function sizeOverlay() {
+      if (!overlay) return;
+      const rect = titleBlock.getBoundingClientRect();
+      overlay.style.width = rect.width + 'px';
+      // height is intrinsic to the content (same as title-block), no need to set
+    }
+
+    function update() {
+      const offset = lastScroll * 0.32;
+      titleBlock.style.transform = 'translateY(' + offset + 'px)';
+
+      // Position and clip the white overlay so it sits exactly over the
+      // title-block, revealing only the portion currently behind the header.
+      // Also clip the brown original to hide the matching portion so brown
+      // doesn't bleed through underneath the white cloud.
+      if (overlay && header) {
+        const titleRect = titleBlock.getBoundingClientRect();
+        const headerBottom = header.getBoundingClientRect().bottom;
+        const overlapPx = headerBottom - titleRect.top;
+
+        // Position overlay at title-block's current viewport coords
+        overlay.style.transform = 'translate(' + titleRect.left + 'px, ' + titleRect.top + 'px)';
+
+        // White overlay: reveal only the area behind the header
+        let whiteBottomInset;
+        if (overlapPx <= 0) {
+          whiteBottomInset = titleRect.height; // hide entirely
+        } else if (overlapPx >= titleRect.height) {
+          whiteBottomInset = 0; // reveal entirely
+        } else {
+          whiteBottomInset = titleRect.height - overlapPx;
+        }
+        overlay.style.clipPath = 'inset(0 0 ' + whiteBottomInset + 'px 0)';
+
+        // Brown original: hide the top portion that the white cloud is covering
+        let brownTopInset;
+        if (overlapPx <= 0) {
+          brownTopInset = 0;
+        } else if (overlapPx >= titleRect.height) {
+          brownTopInset = titleRect.height;
+        } else {
+          brownTopInset = overlapPx;
+        }
+        titleBlock.style.clipPath = 'inset(' + brownTopInset + 'px 0 0 0)';
+      }
+
+      ticking = false;
+    }
+
+    function onScroll() {
+      lastScroll = getScrollPosition();
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('scroll', onScroll, { passive: true });
+    if (document.body) document.body.addEventListener('scroll', onScroll, { passive: true });
+
+    window.addEventListener('resize', function() {
+      sizeOverlay();
+      onScroll();
+    });
+
+    // Polling safety net for iframe contexts where scroll events don't bubble
+    let lastPolledScroll = 0;
+    setInterval(function() {
+      const current = getScrollPosition();
+      if (current !== lastPolledScroll) {
+        lastPolledScroll = current;
+        lastScroll = current;
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      }
+    }, 100);
+
+    sizeOverlay();
+    onScroll();
+  })();
+</script>
 
 </body>
 </html>
