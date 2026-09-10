@@ -121,7 +121,7 @@
       h += '<div class="serif-body">' + bodyHtml(p, imgBase) + '</div>';
     } else if (p.section === 'essay') {
       if (p.title) h += '<h2 class="ptitle">' + (p.link ? '<a href="' + esc(p.link) + '">' + esc(p.title) + '</a>' : esc(p.title)) + '</h2>';
-      h += '<div class="excerpt">' + bodyHtml(p, imgBase) + (p.link ? '<p><a class="more" href="' + esc(p.link) + '">Read →</a></p>' : '') + '</div>';
+      h += '<div class="excerpt">' + bodyHtml(p, imgBase) + (p.link ? '<p><a class="more" href="' + esc(p.link) + '">More →</a></p>' : '') + '</div>';
     } else if (p.section === 'build') {
       if (p.title) h += '<h2 class="ptitle">' + esc(p.title) + '</h2>';
       h += '<div class="excerpt">' + bodyHtml(p, imgBase) + '</div>';
@@ -129,7 +129,7 @@
     } else { /* note */
       if (p.title) h += '<h2 class="ptitle">' + esc(p.title) + '</h2>';
       h += '<div class="note-body">' + bodyHtml(p, imgBase) + '</div>';
-      if (p.link) h += '<p class="excerpt"><a class="more" href="' + esc(p.link) + '">→ ' + esc(p.link.replace(/^https?:\/\//, '').replace(/\/$/, '')) + '</a></p>';
+      if (p.link) h += '<p class="excerpt"><a class="more" href="' + esc(p.link) + '">More →</a></p>';
     }
 
     h += '<div class="meta">' + bylineHtml(p) +
