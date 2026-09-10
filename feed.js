@@ -8,7 +8,7 @@
     note:   { kick: 'Note you. Yours.', type: 'tiny human thoughts' },
     pearl:  { kick: 'Sequiturs, non',   type: '#shitLLMssay' },
     build:  { kick: 'Not ready. Yet.',  type: 'from the workshop' },
-    essay:  { kick: 'Sorrell, Mark',    type: 'also available on Substack' },
+    essay:  { kick: 'Sorrell, Mark',    type: 'going off on one' },
     column: { kick: null,               type: 'a made person, in their own words' }
   };
 
