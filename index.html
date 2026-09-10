@@ -33,6 +33,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="/feed.css">
+<script src="/feed.js" defer></script>
+
 <style>
 :root {
   /* Top band — sky */
@@ -41,7 +44,7 @@
   --band-sea:    #2A6FA8;
 
   /* Brown ink family — for use on the sky band */
-  --ink:         #3A2418;
+  --ink:         #301E14;
   --ink-mid:     #5A3A28;
   --ink-faint:   #7A6E66;
 
@@ -105,55 +108,24 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
   isolation: isolate;
 }
 
-.ag-mark a {
+.brand a {
   text-decoration: none;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  color: inherit;
-  height: 56px;
-}
-
-.ag-mark .monogram {
-  font-family: 'Crimson Pro', serif;
-  font-weight: 500;
-  font-size: 36px;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  color: var(--ink);
-  background: var(--yellow);
-  width: 56px;
-  height: 56px;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  padding-bottom: 2px;
-  transition: background 120ms ease;
+  gap: 14px;
+  color: inherit;
 }
+.brand .tile { width: 56px; height: 56px; flex: none; }
+.brand .tile svg { display: block; width: 100%; height: 100%; }
+.brand .wm { display: flex; flex-direction: column; line-height: 1; }
+.brand .wm .name { font-weight: 600; font-size: 22px; letter-spacing: .003em; color: var(--ink); }
+.brand .wm .tag { font-style: italic; font-weight: 400; font-size: 14px; color: var(--ink-mid); margin-top: 4px; }
 
-.ag-mark .header-emdash {
-  font-family: 'Crimson Pro', serif;
-  font-weight: 500;
-  font-size: 30px;
-  letter-spacing: -0.02em;
-  line-height: 0.2;
-  color: var(--white);
-  display: block;
-  margin-top: -14px;
-  position: relative;
-  z-index: 1;
-  transition: color 120ms ease;
-}
-
-.ag-mark a:hover .monogram,
-.ag-mark a:focus-visible .monogram {
-  background: var(--white);
-}
-
-.ag-mark a:hover .header-emdash,
-.ag-mark a:focus-visible .header-emdash {
-  color: var(--yellow);
-}
+/* Mark hover: yellow and white swap, AG stays ink (AG_mark_spec.md) */
+.mk-ground, .mk-bar, .hb-ground, .hb-bar { transition: fill 120ms ease; }
+.brand a:hover .mk-ground, .brand a:focus-visible .mk-ground { fill: #FFFFFF; }
+.brand a:hover .mk-bar,    .brand a:focus-visible .mk-bar    { fill: #F5D547; }
+.brand a:focus-visible { outline: none; }
 
 .nav {
   display: flex;
@@ -161,54 +133,20 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
   position: relative;
 }
 
-/* Hamburger button — three em-dashes stacked, same 56px box as the wordmark.
-   The lowest em-dash aligns vertically with the wordmark em-dash. */
+/* Hamburger: the canonical ag-hamburger.svg, three canonical bars, bottom bar on the mark's bar line */
 .menu-button {
   width: 56px;
   height: 56px;
-  background: var(--white);
+  background: transparent;
   border: none;
   padding: 0;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-end;
-  font-family: 'Crimson Pro', serif;
-  transition: background 120ms ease;
+  flex: none;
 }
-
-.menu-button:hover,
-.menu-button:focus-visible {
-  background: var(--band-sea);
-  outline: none;
-}
-
-.menu-em {
-  font-family: 'Crimson Pro', serif;
-  font-weight: 500;
-  font-size: 30px;
-  letter-spacing: -0.02em;
-  line-height: 0.2;
-  color: var(--ink);
-  text-align: left;
-  display: block;
-  padding-left: 0;
-  transition: color 120ms ease;
-}
-
-/* Distribute the three em-dashes so the bottom one aligns with the wordmark em-dash.
-   The wordmark em-dash visual line sits ~46px from the top of its 56px box.
-   With justify-content: flex-end on the button, the third em-dash sits near the bottom;
-   margin-bottom on the third raises it to match the wordmark line. */
-.menu-em:nth-child(1) { margin-bottom: 11px; }
-.menu-em:nth-child(2) { margin-bottom: 11px; }
-.menu-em:nth-child(3) { margin-bottom: 10px; }
-
-.menu-button:hover .menu-em,
-.menu-button:focus-visible .menu-em {
-  color: var(--white);
-}
+.menu-button svg { display: block; width: 100%; height: 100%; }
+.menu-button:hover .hb-ground, .menu-button:focus-visible .hb-ground { fill: #1C4D6E; }
+.menu-button:hover .hb-bar,    .menu-button:focus-visible .hb-bar    { fill: #FFFFFF; }
+.menu-button:focus-visible { outline: none; }
 
 /* Dropdown menu — each link is its own white cloud box.
    Odd boxes (1st, 3rd) right-align to the hamburger right edge.
@@ -338,6 +276,9 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
   display: flex;
   flex-direction: column;
 }
+
+.living { margin-bottom: 0; }
+.sea-kick { font-family: 'Crimson Pro', serif; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--cream-faint); margin-bottom: 18px; }
 
 /* ============ BODY PROSE ============ */
 .subject {
@@ -552,18 +493,14 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
 
 <header class="sticky-header">
   <div class="sticky-header-inner">
-    <div class="ag-mark">
-      <a href="/" aria-label="Artificial, games. — home">
-        <div class="monogram">AG</div>
-        <span class="header-emdash" aria-hidden="true">&mdash;</span>
+    <div class="brand">
+      <a href="/" aria-label="Artificial, games. home">
+        <span class="tile"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"> <rect class="mk-ground" width="100" height="100" fill="#F5D547"/> <path transform="translate(13.043,68.625) scale(0.062500,-0.062500)" fill="#301E14" d="M1.120879120879121 0 -1.348901098901099 41.75824175824176 48.59065934065934 56.22802197802198 253.6510989010989 566.2417582417582 319.6373626373626 605 541.3956043956044 56.22802197802198 591.8653846153846 41.75824175824176 588.8653846153846 0H366.66483516483515L364.19505494505495 41.75824175824176L426.13461538461536 56.22802197802198L368.54395604395603 198.59065934065933L357.54395604395603 230.53021978021977L251.36263736263737 491.2554945054945L276.24175824175825 497.67857142857144L178.8186813186813 231.46978021978023L168.28846153846155 201.46978021978023L117.16758241758242 56.22802197802198L179.10714285714286 41.75824175824176L176.63736263736263 0ZM146.75824175824175 180.3021978021978V238Q165.75824175824175 237 196.17445054945054 235.7651098901099Q226.59065934065933 234.53021978021977 272.24175824175825 234.53021978021977Q316.89285714285717 234.53021978021977 348.0439560439561 235.7651098901099Q379.19505494505495 237 397.19505494505495 238V180.77197802197801Q367.89285714285717 181.3021978021978 336.74175824175825 182.0370879120879Q305.59065934065933 182.77197802197801 272.24175824175825 182.77197802197801Q239.42307692307693 182.77197802197801 209.0370879120879 182.0370879120879Q178.6510989010989 181.3021978021978 146.75824175824175 180.3021978021978Z"/> <path transform="translate(48.556,68.625) scale(0.062500,-0.062500)" fill="#301E14" d="M372.59065934065933 -9Q280.18131868131866 -9 206.71153846153845 24.73489010989011Q133.24175824175825 58.46978021978022 90.71153846153847 124.0Q48.18131868131868 189.53021978021977 48.18131868131868 285.6510989010989Q48.18131868131868 351.93956043956047 71.85576923076923 408.37912087912093Q95.53021978021978 464.81868131868134 139.43956043956044 507.114010989011Q183.3489010989011 549.4093406593406 245.78846153846155 572.7046703296703Q308.22802197802196 596 386.75824175824175 596Q429.1675824175824 596 475.69780219780216 587.5302197802198Q522.228021978022 579.0604395604396 554.8186813186813 564.0604395604396L560.3489010989011 429.77197802197804L510.71153846153845 426.24175824175825L480.77197802197804 516.1813186813187Q461.3021978021978 529.2417582417582 432.15109890109886 534.771978021978Q403 540.3021978021978 377.81868131868134 540.3021978021978Q306.45604395604397 540.3021978021978 260.03983516483515 509.44642857142856Q213.62362637362637 478.59065934065933 191.5934065934066 426.0Q169.5631868131868 373.40934065934067 169.5631868131868 307.4697802197802Q169.5631868131868 224.8186813186813 198.65384615384613 166.52335164835165Q227.7445054945055 108.22802197802199 277.1607142857143 77.96291208791209Q326.5769230769231 47.6978021978022 387.81868131868134 47.6978021978022Q412.1208791208791 47.6978021978022 441.4230769230769 54.78846153846153Q470.72527472527474 61.879120879120876 493.967032967033 78.06043956043956L471.84615384615387 22.53021978021978V128Q471.84615384615387 156.71153846153845 470.84615384615387 181.74175824175825Q469.84615384615387 206.77197802197801 467.84615384615387 219.77197802197801L398.9065934065934 231.71153846153845L401.3763736263736 275.4697802197802H613.2884615384615L615.7582417582418 233.71153846153845L569.8791208791209 220.77197802197801Q569.4093406593406 214.83241758241758 569.6442307692307 194.89285714285714Q569.8791208791209 174.9532967032967 569.8791208791209 148.89285714285714Q569.8791208791209 121.46978021978022 570.8791208791209 97.90934065934066Q571.8791208791209 74.3489010989011 572.8791208791209 45.53021978021978Q532.4697802197802 20.060439560439562 477.9697802197802 5.530219780219781Q423.4697802197802 -9 372.59065934065933 -9Z"/> <rect class="mk-bar" x="0" y="82.6180" width="36.688" height="3.389" fill="#FFFFFF"/></svg></span>
+        <span class="wm"><span class="name">Artificial, games.</span><span class="tag">Not you. Yours.</span></span>
       </a>
     </div>
     <nav class="nav">
-      <button class="menu-button" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu">
-        <span class="menu-em" aria-hidden="true">&mdash;</span>
-        <span class="menu-em" aria-hidden="true">&mdash;</span>
-        <span class="menu-em" aria-hidden="true">&mdash;</span>
-      </button>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect class="hb-ground" width="100" height="100" fill="#FFFFFF"/><rect class="hb-bar" x="0" y="13.9930" width="36.688" height="3.389" fill="#301E14"/><rect class="hb-bar" x="0" y="48.3055" width="36.688" height="3.389" fill="#301E14"/><rect class="hb-bar" x="0" y="82.6180" width="36.688" height="3.389" fill="#301E14"/></svg></button>
       <div class="menu-panel" id="menu-panel" hidden>
         <a href="/about">About</a>
         <a href="mailto:mark@artificialgames.ai">Contact</a>
@@ -597,6 +534,14 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
 <section class="band-sea">
   <div class="sea-inner">
 
+    <!-- THE LIVING FEED. Rendered from /feed.json by feed.js. Empty until the first publish. -->
+    <div class="living" id="living" hidden>
+      <div class="feed-pulse"><span class="dot"></span> <span id="pulse"></span></div>
+      <div class="feed" id="feed"></div>
+      <hr class="feed-sep">
+    </div>
+
+    <div class="sea-kick">What is this</div>
     <div class="subject">
       <p>Most games put you in control.<br><strong>Artificial Games</strong> asks what happens when you give that control to a thing you made.</p>
       <p>Brief an AI character, then watch it play a game. It makes moves, takes risks, forms grudges, betrays, bargains, panics, does what you hoped, and what you feared, and then explains itself afterwards.</p>
@@ -632,7 +577,7 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
       <div class="footer-row">
         <div class="field">
           <span class="label">Who:</span>
-          <span class="value">M. Sorrell, claude-opus-4-7, claude-opus-4-8, claude-fable-5, gpt-5.4, Buttondown</span>
+          <span class="value">M. Sorrell, claude-opus-4-8, claude-fable-5, claude-fable-5-1, gpt-5.4, Buttondown</span>
         </div>
         <div class="field">
           <span class="label">What:</span>
@@ -640,7 +585,7 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
         </div>
         <div class="field">
           <span class="label">When:</span>
-          <span class="value">July 2026</span>
+          <span class="value">September 2026</span>
         </div>
       </div>
     </footer>
@@ -792,6 +737,28 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
 
     sizeOverlay();
     onScroll();
+  })();
+</script>
+
+<script>
+  // The living feed: fetch the snapshot, render newest first. If there is no snapshot yet, the band stays as it was.
+  (function() {
+    function go() {
+      if (!window.AGFeed) return;
+      fetch('/feed.json?t=' + Math.floor(Date.now() / 300000), { cache: 'no-cache' })
+        .then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function(data) {
+          var posts = (data && data.posts) || [];
+          var live = posts.filter(function(p) { return p.status === 'live'; })
+            .sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+          if (!live.length) return;
+          document.getElementById('feed').innerHTML = AGFeed.renderFeed(live, { imgBase: '/img/' });
+          document.getElementById('pulse').innerHTML = AGFeed.pulse(live);
+          document.getElementById('living').hidden = false;
+        })
+        .catch(function() { /* no feed yet, nothing to show */ });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
   })();
 </script>
 
