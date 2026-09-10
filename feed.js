@@ -9,7 +9,7 @@
     pearl:  { kick: 'Sequiturs, non',   type: 'a non-sequitur out of the game' },
     build:  { kick: 'Not ready. Yet.',  type: 'what actually moved' },
     essay:  { kick: 'Sorrell, Mark',    type: 'the longer think' },
-    column: { kick: null,               type: 'a week, in a character’s voice' }
+    column: { kick: null,               type: 'a made person, in their own words' }
   };
 
   /* column kickers are per author */
@@ -117,7 +117,7 @@
       h += '<div class="pearl">' + lines.map(function (l) { return '<p class="line">“' + esc(l.trim()).replace(/\n/g, '<br>') + '”</p>'; }).join('') + '</div>';
     } else if (p.section === 'column') {
       if (p.title) h += '<h2 class="ptitle">' + esc(p.title) + '</h2>';
-      h += '<p class="dek">This week’s column is written by <b>' + esc(p.byline || 'a character') + '</b>, given the studio’s week and asked to tell it in their own voice.</p>';
+      h += '<p class="dek">This week’s column is written by <b>' + esc(p.byline || 'a character') + '</b>, who isn’t real.</p>';
       h += '<div class="serif-body">' + bodyHtml(p, imgBase) + '</div>';
     } else if (p.section === 'essay') {
       if (p.title) h += '<h2 class="ptitle">' + (p.link ? '<a href="' + esc(p.link) + '">' + esc(p.title) + '</a>' : esc(p.title)) + '</h2>';
