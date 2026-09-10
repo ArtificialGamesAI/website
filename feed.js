@@ -5,10 +5,10 @@
   'use strict';
 
   var SECTIONS = {
-    note:   { kick: 'Note you. Yours.', type: 'the everyday throw' },
-    pearl:  { kick: 'Sequiturs, non',   type: 'a non-sequitur out of the game' },
-    build:  { kick: 'Not ready. Yet.',  type: 'what actually moved' },
-    essay:  { kick: 'Sorrell, Mark',    type: 'the longer think' },
+    note:   { kick: 'Note you. Yours.', type: 'tiny human thoughts' },
+    pearl:  { kick: 'Sequiturs, non',   type: '#shitLLMssay' },
+    build:  { kick: 'Not ready. Yet.',  type: 'from the workshop' },
+    essay:  { kick: 'Sorrell, Mark',    type: 'also available on Substack' },
     column: { kick: null,               type: 'a made person, in their own words' }
   };
 
