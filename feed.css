@@ -1,0 +1,45 @@
+/* feed.css - the living feed, shared by the site (index.html) and the composer preview.
+   Cards are flat WHITE on the sea. Cream is ink-on-sea, never a ground. */
+
+.feed-pulse{display:flex;align-items:center;gap:10px;font-family:'Crimson Pro',serif;font-size:clamp(16px,1.3vw,19px);color:var(--cream-mid);margin-bottom:6px}
+.feed-pulse .dot{width:9px;height:9px;background:var(--yellow);flex:none;box-shadow:0 0 0 0 rgba(245,213,71,.5);animation:fpl 2.6s infinite}
+@keyframes fpl{0%{box-shadow:0 0 0 0 rgba(245,213,71,.5)}70%{box-shadow:0 0 0 8px rgba(245,213,71,0)}100%{box-shadow:0 0 0 0 rgba(245,213,71,0)}}
+.feed-pulse b{color:var(--cream);font-weight:600}
+.feed{margin:0;display:flex;flex-direction:column;gap:clamp(16px,2vw,22px)}
+.post{background:var(--white);color:var(--ink);padding:clamp(26px,3vw,36px);font-family:'Crimson Pro',serif}
+.post a{color:inherit;text-decoration:none}
+.kick{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--band-sea);margin-bottom:12px;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.kick .type{font-weight:400;letter-spacing:.01em;text-transform:none;font-style:italic;font-size:15px;color:var(--ink-faint)}
+.ptitle{font-weight:700;font-size:clamp(24px,2.4vw,30px);line-height:1.12;margin:0 0 6px;letter-spacing:-0.012em;color:var(--ink)}
+.note-body{font-weight:400;font-size:clamp(19px,1.7vw,22px);line-height:1.4;margin:0;color:var(--ink)}
+.note-body p{margin:0 0 12px}.note-body p:last-child{margin:0}
+.excerpt{font-weight:300;font-size:clamp(18px,1.6vw,20px);line-height:1.5;color:var(--ink-mid);margin:0}
+.excerpt p{margin:0 0 12px}.excerpt p:last-child{margin:0}
+.serif-body{font-weight:300;font-size:clamp(18px,1.6vw,20px);line-height:1.5;color:var(--ink)}
+.serif-body p{margin:0 0 14px}.serif-body p:last-child{margin:0}
+.dek{font-style:italic;font-size:17px;color:var(--ink-faint);margin:0 0 16px;line-height:1.45}
+.dek b{font-style:normal;font-weight:600;color:var(--ink)}
+.more{color:var(--band-sea);font-weight:600}
+.pearl{border-left:3px solid var(--yellow);padding:2px 0 2px 18px;margin:2px 0}
+.pearl .line{font-style:italic;font-weight:400;font-size:clamp(20px,1.9vw,23px);line-height:1.4;color:var(--ink);margin:0 0 10px}
+.pearl .line:last-child{margin:0}
+.shot{margin:4px 0 16px;overflow:hidden;background:#1C4D6E}
+.shot img{display:block;width:100%;height:auto}
+.shot .cap{font-style:italic;font-size:15px;line-height:1.4;color:var(--cream);padding:8px 12px 10px}
+.meta{display:flex;align-items:center;gap:11px;margin-top:16px;font-size:15px;color:var(--ink-faint);flex-wrap:wrap}
+.by{display:flex;align-items:center;gap:9px}
+.av{width:24px;height:24px;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.av.mark{background:var(--band-sea);color:var(--cream)}
+.av.char{background:var(--ink);color:var(--cream)}
+.by .who{font-weight:600;color:var(--ink)}
+.by .who.char{font-style:italic}
+.lane{font-size:14px;color:var(--ink-faint)}
+.dotsep{color:rgba(58,36,24,.3)}
+.pg{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--ink-mid);background:rgba(58,36,24,.05);border:1px solid rgba(58,36,24,.16);padding:3px 11px;white-space:nowrap}
+.pg b{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
+.pg .lab{color:var(--ink-faint)}
+.pbar{width:36px;height:5px;background:rgba(58,36,24,.14);overflow:hidden;position:relative}
+.pbar i{position:absolute;top:0;left:0;bottom:0}
+.hum i{background:#2F8F57}.ai i{background:var(--band-sea)}
+.feed-sep{border:0;border-top:1px solid var(--white);margin:clamp(52px,6vw,72px) 0 clamp(40px,5vw,52px)}
+.feed-empty{font-family:'Crimson Pro',serif;font-style:italic;font-weight:300;font-size:clamp(18px,1.6vw,22px);color:var(--cream-mid)}
