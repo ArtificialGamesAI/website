@@ -81,6 +81,26 @@
     return out;
   }
 
+  /* notes read as speech: an opening quote on every paragraph, a closing quote only on the last (printed-dialogue convention).
+     Image tokens still work, they sit outside the quoting. */
+  function speechHtml(p, imgBase) {
+    var imgs = p.images || [];
+    var paras = String(p.body || '').replace(/\r\n/g, '\n').split(/\n\s*\n/).map(function (x) { return x.trim(); }).filter(Boolean);
+    var lastText = -1;
+    for (var k = 0; k < paras.length; k++) if (!/^\[img\d+\]$/i.test(paras[k])) lastText = k;
+    var out = '';
+    for (var i = 0; i < paras.length; i++) {
+      var m = paras[i].match(/^\[img(\d+)\]$/i);
+      if (m) { var im = imgs[parseInt(m[1], 10) - 1]; if (im) out += figure(im, imgBase); continue; }
+      out += '<p>\u201c' + esc(paras[i]).replace(/\n/g, '<br>') + (i === lastText ? '\u201d' : '') + '</p>';
+    }
+    var used = {};
+    var re = /\[img(\d+)\]/gi, mm;
+    while ((mm = re.exec(p.body || ''))) used[parseInt(mm[1], 10) - 1] = true;
+    for (var j = 0; j < imgs.length; j++) if (!used[j]) out += figure(imgs[j], imgBase);
+    return out;
+  }
+
   function figure(im, imgBase) {
     var src = (imgBase || '') + encodeURIComponent(im.file);
     return '<figure class="shot"><img src="' + src + '" alt="' + esc(im.caption) + '" loading="lazy">' +
@@ -128,7 +148,7 @@
       if (p.link) h += '<p class="excerpt"><a class="more" href="' + esc(p.link) + '">More →</a></p>';
     } else { /* note */
       if (p.title) h += '<h2 class="ptitle">' + esc(p.title) + '</h2>';
-      h += '<div class="note-body">' + bodyHtml(p, imgBase) + '</div>';
+      h += '<div class="note-body">' + speechHtml(p, imgBase) + '</div>';
       if (p.link) h += '<p class="excerpt"><a class="more" href="' + esc(p.link) + '">More →</a></p>';
     }
 
